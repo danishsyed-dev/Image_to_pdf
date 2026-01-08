@@ -35,7 +35,7 @@ def sample_images(temp_dir):
         img_path = temp_dir / f"test_image_{i}.png"
         img = Image.new("RGB", (100, 100), color)
         img.save(img_path)
-        images.append(str(img_path))
+        images.append(str(img_path.resolve()))
 
     return images
 
@@ -66,7 +66,8 @@ class TestFindImages:
         """Test finding a single image file."""
         found = converter.find_images(sample_images[0])
         assert len(found) == 1
-        assert found[0] == sample_images[0]
+        # Compare using Path to handle Windows short path names (8.3 format)
+        assert Path(found[0]).resolve() == Path(sample_images[0]).resolve()
 
     def test_find_images_list_of_files(self, converter, sample_images):
         """Test finding images from a list of files."""
