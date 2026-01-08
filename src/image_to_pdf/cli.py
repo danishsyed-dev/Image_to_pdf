@@ -56,14 +56,8 @@ Examples:
             print("❌ No input provided!")
             return 1
 
-        # Parse multiple paths separated by spaces
-        if " " in input_path:
-            input_paths = [
-                Path(path.strip('"').strip("'"))
-                for path in input_path.split()
-            ]
-        else:
-            input_paths = Path(input_path.strip('"').strip("'"))
+        # Parse input - treat as single path (don't split on spaces, paths can have spaces)
+        input_paths = Path(input_path.strip('"').strip("'"))
 
         output_path = input(
             "Enter output PDF filename (press Enter for 'converted_images.pdf'): "
