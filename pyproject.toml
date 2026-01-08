@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "image-to-pdf"
+version = "1.0.0"
+description = "A powerful CLI tool to convert images to PDF with custom ordering and HEIC support"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Danish Syed", email = "danishsyed.dev@gmail.com"}
+]
+keywords = ["image", "pdf", "converter", "heic", "cli", "pillow"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "Pillow>=10.0.0",
+    "pillow-heif>=0.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+image-to-pdf = "image_to_pdf.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/danishsyed-dev/image_to_pdf"
+Repository = "https://github.com/danishsyed-dev/image_to_pdf"
+Issues = "https://github.com/danishsyed-dev/image_to_pdf/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "C4"]
+# Ignore UP* rules that require Python 3.10+ syntax (we support 3.9)
+ignore = ["E501", "UP006", "UP007", "UP035", "UP045"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
